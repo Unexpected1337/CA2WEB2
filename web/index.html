@@ -14,13 +14,26 @@ and open the template in the editor.
             $(document).ready(function () {
                 $("#btn1").click(getPerson);
             });
-            
-              $(document).ready(function () {
+
+            $(document).ready(function () {
                 $("#btn").click(getAllPersons);
             });
-                    $(document).ready(function () {
-                $("#deleteperson").click(deleteperson);
-            });
+
+
+            function createPerson() {
+                var text = document.getElementById("field").value;
+                var request = $.ajax({
+                    url: "api/person/" + text,
+                    dataType: "json"
+                });
+                request.done(function (per) {
+
+
+
+                });
+
+
+            }
 
             function getPerson() {
                 var text = document.getElementById("field").value;
@@ -30,16 +43,18 @@ and open the template in the editor.
                 });
 
                 request.done(function (per) {
-                    
-                 console.log(per);
-                 var per = "<tr>" 
-                            + "<td>" 
-                            + p[i].id  + "</td><td>" 
-                            + p[i].email + "</td><td>" 
-                         + per.firstName + "</td><td>" 
-                         + per.lastName + "</td><td>" 
-                         + per.street + "</td><td>" + per.additionalInfo + "</td><td>" + per.zip + "</td></tr>"
-                 $("#persons").append(per);
+
+                    console.log(per);
+                    var per = "<tr><td>"
+                            + per.id + "</td><td>"
+                            + per.email + "</td><td>"
+                            + per.firstName + "</td><td>"
+                            + per.lastName + "</td><td>"
+                            + per.street + "</td><td>"
+                            + per.additionalInfo + "</td><td>"
+                            + per.zip + "</td><td>"
+                            + +"</td></tr>"
+                    $("#persons").append(per);
 
                 });
                 request.fail(function (jqXHR, textStatus) {
@@ -49,7 +64,7 @@ and open the template in the editor.
             ;
 
 
-              function getAllPersons() {
+            function getAllPersons() {
 
                 var request = $.ajax({
                     url: "api/person",
@@ -62,16 +77,16 @@ and open the template in the editor.
                     $("#players").append("<tr><th>Email</th><th>First name</th><th>Last name</th><th>Street</th><th>Additional Info</th><th>Zip</th></tr>");
 
                     for (var i = 0; p.length; i++) {
-                        var li = "<tr>" 
-                                + "</td><td>" + p[i].id 
-                                + "</td><td>" + p[i].email 
-                                + "</td><td>" + p[i].firstName 
+                        var li = "<tr>"
+                                + "</td><td>" + p[i].id
+                                + "</td><td>" + p[i].email
+                                + "</td><td>" + p[i].firstName
                                 + "</td><td>" + p[i].lastName
-                                + "</td><td>" + p[i].street 
-                                + "</td><td>" + p[i].additionalInfo 
-                                + "</td><td>" + p[i].zip 
-                                + "</td><td>" + '<button onclick="sayHello()">'+'delete'+'</button>' +"</td></tr>";
-                             $("#persons").append(li);
+                                + "</td><td>" + p[i].street
+                                + "</td><td>" + p[i].additionalInfo
+                                + "</td><td>" + p[i].zip
+                                + "</td><td>" + '<button onclick="sayHello()">' + 'delete' + '</button>' + "</td></tr>";
+                        $("#persons").append(li);
                     }
 
                 });
@@ -81,25 +96,51 @@ and open the template in the editor.
                 });
 
             }
-            
-            
-            function sayHello(){
-                  alert("i am deleting stuff");
+
+
+            function sayHello() {
+                alert("i am deleting stuff");
                 var request = $.ajax({
                     url: "api/person/" + document.getElementById(),
                     dataType: "json"
                 });
             }
-            
-             
+
+
         </script>
     </head>
     <body>
         <div><h1>CA2 Web</h1></div>
+       
         <input type="text" id="field">
         <button id="btn1">Find Person</button>
         <input type="submit" id="btn" value="Get All Players">
+     
+        
+      
         <table class="table table-bordered" style="width: 60%" id="persons"></table>
-        <button id="deleteperson">delete</button>
-    </body>
+        <form>
+            Email:<br>
+            <input type="text" name="Email">
+            <br>
+            First name:<br>
+            <input type="text" name="fn">
+            <br>
+            Last name:<br>
+            <input type="text" name="ln">
+            <br>
+         
+            Street:<br>
+            <input type="text" name="street">
+            <br>
+            Additional Info:<br>
+            <input type="text" name="Ai">
+            <br>
+            zip:<br>
+            <input type="text" name="zip">
+            <br>
+            
+        </form>
+  
+</body>
 </html>
